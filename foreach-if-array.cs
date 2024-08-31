@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 // initialize variables - graded assignments 
 int examAssignments = 5;
@@ -22,7 +22,7 @@ int [] studentScores = new int[10];
 string currentStudentLetterGrade = "";
 
 //Output header to the console
-Console.WriteLine("Student\t\tGrade\n");
+Console.WriteLine("Student\t\tExam Score\tOverall Grade\tExtra Credit\n");
 
 foreach (string name in studentNames){
     
@@ -58,10 +58,16 @@ foreach (string name in studentNames){
     int sumAssignmentScores = 0;
 
     //Initialize/reset the calculated average of exam + extra credit scores
-    decimal currentStudentGrade = 0;
+    decimal overallStudentGrade = 0;
 
         //Initialize/reset the number of graded assignments
         int gradedAssignments = 0;
+
+        // Variable to store exam scores only
+        decimal examScores = 0;
+
+        // Variable to store extra credit points
+        decimal extraCreditPts = 0;
 
         //Loop through the scores array and complete calculations for the currentstudent
         foreach (int score in studentScores)
@@ -72,58 +78,62 @@ foreach (string name in studentNames){
             //Add the exam score to the sum.
             if (gradedAssignments <= examAssignments){
             sumAssignmentScores += score;
+            examScores += score;
             }
             else {
                 //Add the extra credit points to the sum - bonus points equals 10% of exam score
                 sumAssignmentScores += score / 10;
+                extraCreditPts += score / 10;
             }
         }
+        extraCreditPts = extraCreditPts / (decimal)examAssignments;
+        examScores = examScores / (decimal)examAssignments;
+        overallStudentGrade = (decimal)(sumAssignmentScores) / examAssignments;
 
-        currentStudentGrade = (decimal)(sumAssignmentScores) / examAssignments;
-
-        if (currentStudentGrade >= 97){
+        if (overallStudentGrade >= 97){
             currentStudentLetterGrade = "A+";
         }
-        else if(currentStudentGrade >= 93){
+        else if(overallStudentGrade >= 93){
             currentStudentLetterGrade = "A";
         }
-        else if(currentStudentGrade >= 90){
+        else if(overallStudentGrade >= 90){
             currentStudentLetterGrade = "A-";
         }
-        else if (currentStudentGrade >= 87){
+        else if (overallStudentGrade >= 87){
             currentStudentLetterGrade = "B+";
         }
-        else if (currentStudentGrade >= 83){
+        else if (overallStudentGrade >= 83){
             currentStudentLetterGrade = "B";
         }
-        else if (currentStudentGrade >= 80){
+        else if (overallStudentGrade >= 80){
             currentStudentLetterGrade = "B-";
         }
-        else if (currentStudentGrade >= 77){
+        else if (overallStudentGrade >= 77){
             currentStudentLetterGrade = "C+";
         }
-        else if (currentStudentGrade >= 73){
+        else if (overallStudentGrade >= 73){
             currentStudentLetterGrade = "C";
         }
-        else if (currentStudentGrade >= 70){
+        else if (overallStudentGrade >= 70){
             currentStudentLetterGrade = "C-";
         }
-        else if (currentStudentGrade >= 67){
+        else if (overallStudentGrade >= 67){
             currentStudentLetterGrade = "D+";
         }
-        else if (currentStudentGrade >= 63){
+        else if (overallStudentGrade >= 63){
             currentStudentLetterGrade = "D";
         }
-        else if (currentStudentGrade >= 60){
+        else if (overallStudentGrade >= 60){
             currentStudentLetterGrade = "D-";
         }
         else{
             currentStudentLetterGrade = "F";
         }
-        Console.WriteLine($"{currentStudent}\t\t{currentStudentGrade}\t{currentStudentLetterGrade}");
+        Console.WriteLine($"{currentStudent}\t\t{examScores}\t\t{overallStudentGrade}\t{currentStudentLetterGrade}\t{(int)examScores} ({extraCreditPts} pts)");
 }
 
 
 
 Console.WriteLine("Press the Enter key to continue");
 Console.ReadLine();
+
